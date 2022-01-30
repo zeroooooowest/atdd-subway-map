@@ -86,12 +86,16 @@ public class LineStep {
         assertThat(lineNames).contains(Arrays.stream(paramsArgs).map(m -> m.get("name")).toArray());
     }
 
-    public static void 노선_조회_완료(ExtractableResponse<Response> response, Map<String, Object> params) {
+    public static void 노선_조회_완료(
+            ExtractableResponse<Response> response,
+            Map<String, Object> params,
+            Map<String, String>... stationFixtures
+    ) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
         var lineName = response.jsonPath().getString("name");
-        var stations = response.jsonPath().getList("stations");
+        var stations = response.jsonPath().getList("stations.name");
         assertThat(lineName).isEqualTo(params.get("name"));
-        assertThat(stations.size()).isEqualTo(2);
+        assertThat(stations).containsExactlyInAnyOrder(Arrays.stream(stationFixtures).map(m -> m.get("name")).toArray());
     }
 
     public static void 노선_수정_완료(ExtractableResponse<Response> response, Map<String, Object> modifyParams) {

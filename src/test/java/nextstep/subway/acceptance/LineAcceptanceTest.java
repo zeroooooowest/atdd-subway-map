@@ -68,8 +68,10 @@ class LineAcceptanceTest extends AcceptanceTest {
     @Test
     void getLine() {
         // given
-        역_생성_요청(StationFixture.신논현역);
-        역_생성_요청(StationFixture.강남역);
+        var 역1 = StationFixture.신논현역;
+        var 역2 = StationFixture.강남역;
+        역_생성_요청(역1);
+        역_생성_요청(역2);
 
         var 노선1 = LineFixture.신분당선;
         var 노선_생성_응답 = 노선_생성_요청(노선1);
@@ -79,7 +81,7 @@ class LineAcceptanceTest extends AcceptanceTest {
         var 노선_조회_응답 = LineStep.노선_조회_요청(uri);
 
         // then
-        노선_조회_완료(노선_조회_응답, 노선1);
+        노선_조회_완료(노선_조회_응답, 노선1, 역1, 역2);
     }
 
     /**

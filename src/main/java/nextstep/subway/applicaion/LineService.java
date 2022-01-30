@@ -97,7 +97,6 @@ public class LineService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 지하철 역 id: " + downStationId));
 
         var section = new Section(upStation, downStation, distance);
-        section.setLine(line);
         line.addSection(section);
     }
 
